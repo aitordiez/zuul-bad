@@ -15,11 +15,11 @@
 public class Room 
 {
     public String description;
-    public Room northExit;
-    public Room southExit;
-    public Room eastExit;
-    public Room westExit;
-    public Room southEastExit;
+    private Room northExit;
+    private Room southExit;
+    private Room eastExit;
+    private Room westExit;
+    private Room southEastExit;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -62,4 +62,51 @@ public class Room
         return description;
     }
 
+    /**
+     * Metodo que tome como parámetro una cadena que represente una dirección y 
+     * devuelva el objeto de la clase Room asociado a esa salida o null si no 
+     * existe esa salida en dicha ubicación
+     */
+    public Room getExit(String direccion){
+        Room salida = null;
+        if(direccion.equals("north"))
+            salida = northExit;
+        if(direccion.equals("east"))
+            salida = eastExit;
+        if(direccion.equals("south"))
+            salida = southExit;
+        if(direccion.equals("west"))
+            salida = westExit;
+        if(direccion.equals("southEast")){
+            salida = southEastExit;
+        }  
+        return salida;
+    }
+
+    /**
+     * Return a description of the room's exits.
+     * For example: "Exits: north east west"
+     *
+     * @ return A description of the available exits.
+     */
+    public String getExitString(){
+        String salidass = "Exits: ";  
+        if(northExit != null) {
+            salidass += "north ";
+        }
+        if(eastExit != null) {
+            salidass += "east ";
+        }
+        if(southExit != null) {
+            salidass += "south ";
+        }
+        if(westExit != null) {
+            salidass += "west ";
+        }
+        if(southEastExit != null) {
+            salidass += "southEast ";
+        }
+       return salidass;
+    }
 }
+
