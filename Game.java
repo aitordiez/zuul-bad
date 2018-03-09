@@ -34,23 +34,26 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theater, pub, lab, office;
+        Room entradas,gradaOeste,restaurante,gradaEste,
+        banhos,gradaNorte,chiringuito;
       
         // create the rooms
-        outside = new Room("outside the main entrance of the university");
-        theater = new Room("in a lecture theater");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
-        
+        entradas = new Room("Taquilla para entrar al campo");
+        gradaOeste = new Room("Bienvenido a la grada oeste");
+        restaurante = new Room("Restaurante del campo");
+        gradaEste = new Room("Bienvenido a la grada este");
+        banhos= new Room("Seccion de los baños del partido");
+        gradaNorte = new Room("Bienvenido a la grada norte");
+        chiringuito = new Room("Cafeteria del campo");
         // initialise room exits
-        outside.setExits(null, theater, lab, pub);
-        theater.setExits(null, null, null, outside);
-        pub.setExits(null, outside, null, null);
-        lab.setExits(outside, office, null, null);
-        office.setExits(null, null, null, lab);
-
-        currentRoom = outside;  // start game outside
+        entradas.setExits(null, gradaOeste, null, null);
+        gradaOeste.setExits(null, gradaNorte, restaurante, entradas);
+        restaurante.setExits(gradaOeste, null, null, null);
+        gradaEste.setExits(null, null, banhos, gradaNorte);
+        banhos.setExits(gradaEste,null,null,null);
+        gradaNorte.setExits(chiringuito,gradaEste,null,gradaOeste);
+        chiringuito.setExits(null,null,gradaNorte,null);
+        currentRoom = entradas;  // start game outside
     }
 
     /**
