@@ -35,7 +35,7 @@ public class Game
     private void createRooms()
     {
         Room entradas,gradaOeste,restaurante,gradaEste,
-        banhos,gradaNorte,chiringuito, salida;
+        banhos,gradaNorte,chiringuito, salida, salidaNoreste;
 
         // create the rooms
         entradas = new Room("Taquilla para entrar al campo");
@@ -46,14 +46,15 @@ public class Game
         gradaNorte = new Room("Bienvenido a la grada norte");
         chiringuito = new Room("Cafeteria del campo");
         salida = new Room("Salida del campo");
+        salidaNoreste = new Room("Salida Noreste del campo");
         // initialise room exits
-        entradas.setExits(null, gradaOeste, null, null, null);
-        gradaOeste.setExits(null, gradaNorte, restaurante, entradas, null);
-        restaurante.setExits(gradaOeste, null, null, null, salida);
-        gradaEste.setExits(null, null, banhos, gradaNorte, null);
-        banhos.setExits(gradaEste,null,null,null,null);
-        gradaNorte.setExits(chiringuito,gradaEste,null,gradaOeste,null);
-        chiringuito.setExits(null,null,gradaNorte,null,null);
+        entradas.setExits(null, gradaOeste, null, null, null, null);
+        gradaOeste.setExits(null, gradaNorte, restaurante, entradas, null, salidaNoreste);
+        restaurante.setExits(gradaOeste, null, null, null, salida,null);
+        gradaEste.setExits(null, null, banhos, gradaNorte, null, null);
+        banhos.setExits(gradaEste,null,null,null,null, null);
+        gradaNorte.setExits(chiringuito,gradaEste,null,gradaOeste,null, null);
+        chiringuito.setExits(null,null,gradaNorte,null,null, null);
         currentRoom = entradas;  // start game outside
     }
 
