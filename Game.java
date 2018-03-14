@@ -130,7 +130,7 @@ public class Game
         else if (commandWord.equals("look")){
             look();
         }
-         else if (commandWord.equals("eat")){
+        else if (commandWord.equals("eat")){
             eat();
         }
 
@@ -146,13 +146,8 @@ public class Game
      */
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
         System.out.println("Your command words are:");
-        System.out.println("   go quit help");
-        System.out.println("Your command words are:");
-parser.showCommands();
+        System.out.println(parser.showCommands());
     }
 
     /** 
@@ -171,8 +166,8 @@ parser.showCommands();
 
         // Try to leave current room.
         Room nextRoom = null;
-        
-         nextRoom = currentRoom.getExit(direction);
+
+        nextRoom = currentRoom.getExit(direction);
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
@@ -205,14 +200,14 @@ parser.showCommands();
     {
         System.out.println(currentRoom.getLongDescription());
     }
-    
+
     /**
      * "Eat"
      */
     private void eat(){
         System.out.println("You have eaten now and you are not hungry any more");
     }
-    
+
     /**
      * Metodo para imprimir la informacion de la localizacion
      */
