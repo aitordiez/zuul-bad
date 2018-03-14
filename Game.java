@@ -127,6 +127,9 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
+        else if (commandWord.equals("help")){
+            look();
+        }
 
         return wantToQuit;
     }
@@ -190,6 +193,14 @@ public class Game
         }
     }
 
+    /**
+     *"Help" 
+     */
+    private void look()
+    {
+        System.out.println(currentRoom.getLongDescription());
+    }
+    
     /**
      * Metodo para imprimir la informacion de la localizacion
      */
