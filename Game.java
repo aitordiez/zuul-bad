@@ -19,7 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-
+    private Room anteriorSala;
     /**
      * Create the game and initialise its internal map.
      */
@@ -69,7 +69,8 @@ public class Game
         gradaNorte.setExit("west", gradaOeste);
         //Direcciones del chiringuito
         chiringuito.setExit("south", gradaNorte);
-        
+        //sala anterior
+        anteriorSala=gradaOeste;
         //Añadir mas elementos en la grada oeste
         gradaOeste.addItem("periodistas",35);
         gradaOeste.addItem("panel de marcador elelctronico", 78);
@@ -138,6 +139,10 @@ public class Game
         else if (commandWord.equals("eat")){
             eat();
         }
+        else if (commandWord.equals("back")){
+            currentRoom=anteriorSala;
+            printLocationInfo();
+        }
 
         return wantToQuit;
     }
@@ -177,6 +182,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            currentRoom=anteriorSala;
             currentRoom = nextRoom;
             printLocationInfo();
         }
