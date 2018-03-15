@@ -38,15 +38,15 @@ public class Game
         banhos,gradaNorte,chiringuito, salida, salidaNoroeste;
 
         // create the rooms
-        entradas = new Room("Taquilla para entrar al campo");
-        gradaOeste = new Room("Bienvenido a la grada oeste");
-        restaurante = new Room("Restaurante del campo");
-        gradaEste = new Room("Bienvenido a la grada este");
-        banhos= new Room("Seccion de los baños del partido");
-        gradaNorte = new Room("Bienvenido a la grada norte");
-        chiringuito = new Room("Cafeteria del campo");
-        salida = new Room("Salida del campo");
-        salidaNoroeste = new Room("Salida Noroeste del campo");
+        entradas = new Room("Taquilla para entrar al campo","entradas", 30);
+        gradaOeste = new Room("Bienvenido a la grada oeste","reparto de bufandas", 45);
+        restaurante = new Room("Restaurante del campo","comida",12);
+        gradaEste = new Room("Bienvenido a la grada este","periodistas",50);
+        banhos= new Room("Seccion de los baños del partido","servicios",23);
+        gradaNorte = new Room("Bienvenido a la grada norte","puesto de bufandas", 34);
+        chiringuito = new Room("Cafeteria del campo","bar",500);
+        salida = new Room("Salida del campo", "portero de taquilla", 38);
+        salidaNoroeste = new Room("Salida Noroeste del campo","policia", 56);
         // initialise room exits
         //Direcciones de la taquilla de las entradas
         entradas.setExit("east", gradaOeste);
