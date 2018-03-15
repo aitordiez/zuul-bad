@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Set;
+import java.util.ArrayList;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -20,6 +21,7 @@ public class Room
     private HashMap<String, Room>salidas;
     private String itemDescription;
     private int itemWeight;
+    private ArrayList<items> listaItem;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -32,6 +34,7 @@ public class Room
         salidas=new HashMap<>();
         this.itemDescription=itemDescription;
         this.itemWeight=itemWeight;
+        listaItem=new ArrayList<>();
     }
 
     /**
@@ -83,7 +86,32 @@ public class Room
      * @return A description of the room, including exits.
      */
     public String getLongDescription(){
-        return " Tu estas en " + getDescription() +  " tiene un objeto " + itemDescription +  " que pesa " + itemWeight + ".\n" + getExitString();
+        return " Tu estas en " + getDescription() +  " tiene un objeto " + itemDescription +  " que pesa " + itemWeight + 
+               ".\n" + " lista de los objetos " + informacionDeLosObjetosDeLaHabitacion() + ".\n" + getExitString();
+    }
+    
+    /**
+     * Añadir a la lista los objetos de la clase items
+     */
+    public void addItem(String itemDescription, int itemWeight){
+        items it= new items(itemDescription, itemWeight);
+        listaItem.add(it);
+    }
+    
+    /**
+     * Muestra la informacion de los objetos de cada habitacion
+     * 
+     */
+    public String informacionDeLosObjetosDeLaHabitacion(){
+        String informacionDeLosObjetos="";
+        if(listaItem.size() <= 0){
+            informacionDeLosObjetos="No hay ningun objeto en esta habitacion";
+        }else{
+            for(items objetoDeLaLista : listaItem){
+                informacionDeLosObjetos += objetoDeLaLista.getInformacionDeLosObjetos();
+            }
+        }
+        return informacionDeLosObjetos;
     }
 }
 

@@ -69,6 +69,11 @@ public class Game
         gradaNorte.setExit("west", gradaOeste);
         //Direcciones del chiringuito
         chiringuito.setExit("south", gradaNorte);
+        
+        //Añadir mas elementos en la grada oeste
+        gradaOeste.addItem("periodistas",35);
+        gradaOeste.addItem("panel de marcador elelctronico", 78);
+        gradaOeste.addItem("palco de autoridades",90);
         currentRoom = entradas;  // start game outside
     }
 
