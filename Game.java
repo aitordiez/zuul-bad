@@ -192,8 +192,7 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
-            currentRoom=anteriorSala;
-            currentRoom = nextRoom;
+            anteriorSala=currentRoom;
             atras.push(currentRoom);
             currentRoom = nextRoom;
             printLocationInfo();
