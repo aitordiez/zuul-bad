@@ -29,7 +29,7 @@ public class Game
     //variable para la lista de los objetos que tiene cada sala.
     private ArrayList<items> objetos;
     //variable para poner un peso maximo y que no sobrepase ese peso.
-    private static final int PESO_MAXIMO = 100;
+    private static final int PESO_MAXIMO = 78;
     /**
      * Create the game and initialise its internal map.
      */
