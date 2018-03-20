@@ -17,30 +17,42 @@ import java.util.ArrayList;
  */
 public class Room 
 {
+    //La descripcion de la habitacion.
     public String description;
+    //La coleccion de las salidas.
     private HashMap<String, Room>salidas;
+    //La descripcion del objeto.
     private String itemDescription;
+    //El peso de los objetos.
     private int itemWeight;
+    //Coleccion de la lista de los objetos.
     private ArrayList<items> listaItem;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
      * "an open court yard".
      * @param description The room's description.
+     * @param itemDescription. La descripcion del objeto.
+     * @param itemWeight. El peso del objeto.
      */
     public Room(String description, String itemDescription, int itemWeight) 
     {
+        //inicializacion de la descripcion de la habitacion.
         this.description = description;
+        //inicializacion de la coleccion de las salidas.
         salidas=new HashMap<>();
+        //inicializacion de la descripcion de los objetos.
         this.itemDescription=itemDescription;
+        //inicializacion del peso del objeto.
         this.itemWeight=itemWeight;
+        //inicializacion de la lista de los objetos.
         listaItem=new ArrayList<>();
     }
 
     /**
      * Define una salida para la habitación.
      * @param direccion. La direccion de la salida.
-     * @param localizacion. La localizacion de la habitacion dada
+     * @param localizacion. La localizacion de la habitacion dada.
      */
     public void setExit(String direccion, Room localizacion) 
     {
@@ -48,6 +60,7 @@ public class Room
     }
 
     /**
+     * Devuelve la descripcion de la habitacion. 
      * @return The description of the room.
      */
     public String getDescription()
@@ -58,7 +71,8 @@ public class Room
     /**
      * Metodo que tome como parámetro una cadena que represente una dirección y 
      * devuelva el objeto de la clase Room asociado a esa salida o null si no 
-     * existe esa salida en dicha ubicación
+     * existe esa salida en dicha ubicación.
+     * @return devuelve las salidas con las distintas direcciones.
      */
     public Room getExit(String direccion){
         return salidas.get(direccion);
@@ -91,7 +105,9 @@ public class Room
     }
     
     /**
-     * Añadir a la lista los objetos de la clase items
+     * Añadir a la lista los objetos de la clase items.
+     * @param itemDescription. La descripcion del objeto.
+     * @param itemWeight. El peso del objeto.
      */
     public void addItem(String itemDescription, int itemWeight){
         items it= new items(itemDescription, itemWeight);
@@ -99,8 +115,8 @@ public class Room
     }
     
     /**
-     * Muestra la informacion de los objetos de cada habitacion
-     * 
+     * Muestra la informacion de los objetos de cada habitacion.
+     * @return informacionDeLosObjetos.La informacion de los objetos de cada habitacion.
      */
     public String informacionDeLosObjetosDeLaHabitacion(){
         String informacionDeLosObjetos="";
@@ -112,6 +128,14 @@ public class Room
             }
         }
         return informacionDeLosObjetos;
+    }
+    
+    /**
+     * Informacion de la lista de los objetos que hay en cada sala.
+     * @return listaItem. La lista de los objetos que hay en la sala.  
+     */
+    public ArrayList<items> getObjetos(){
+        return listaItem;
     }
 }
 

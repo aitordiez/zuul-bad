@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.ArrayList;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,9 +20,16 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
+    //variable para la habitacion actual.
     private Room currentRoom;
+    //variable para la habitacion anterior. 
     private Room anteriorSala;
+    //variable para volver a la anterior sala.
     private Stack<Room> atras;
+    //variable para la lista de los objetos que tiene cada sala.
+    private ArrayList<items> objetos;
+    //variable para poner un peso maximo y que no sobrepase ese peso.
+    private static final int PESO_MAXIMO = 100;
     /**
      * Create the game and initialise its internal map.
      */
@@ -29,7 +37,11 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        //inicializacion para volver a la habitacion anterior.
         atras = new Stack<>();
+        //inicializacion para la lista de los objetos de cada habitacion.
+        objetos=new ArrayList<>();
+        //introduce un elemento en la pila.
         atras.push(currentRoom);
     }
 
@@ -77,8 +89,12 @@ public class Game
         anteriorSala=gradaOeste;
         //Añadir mas elementos en la grada oeste
         gradaOeste.addItem("periodistas",35);
-        gradaOeste.addItem("panel de marcador elelctronico", 78);
+        gradaOeste.addItem("panel de marcador electronico", 78);
         gradaOeste.addItem("palco de autoridades",90);
+        //Añadir mas elementos en la grada norte
+        gradaNorte.addItem("acceso a grada norte",45);
+        gradaNorte.addItem("Anuncios publicitarios",60);
+        gradaNorte.addItem("zonas Vip",38);
         currentRoom = entradas;  // start game outside
     }
 
@@ -153,6 +169,16 @@ public class Game
             }
             printLocationInfo();
         }
+        else if (commandWord.equals("take")){
+            take(command.getSecondWord());
+        }
+
+        else if (commandWord.equals("drop")){
+            drop(command.getSecondWord());
+        }
+        else if (commandWord.equals("items")){
+            items();
+        }
 
         return wantToQuit;
     }
@@ -216,7 +242,7 @@ public class Game
     }
 
     /**
-     *"Help" 
+     *Imprime la lista de objetos y la habitacion en la que estas actualmente.  
      */
     private void look()
     {
@@ -224,7 +250,7 @@ public class Game
     }
 
     /**
-     * "Eat"
+     * Indica que el usuario ha comido y que no tiene mas hambre.
      */
     private void eat(){
         System.out.println("You have eaten now and you are not hungry any more");
@@ -236,5 +262,56 @@ public class Game
     private void printLocationInfo(){
         System.out.print(currentRoom.getLongDescription());
         System.out.println();
+    }
+
+    /**
+     * Metodo para que el jugador pueda coger los objetos de la sala.
+     * @param la descripcion del objeto que el jugador va a coger.
+     */
+    private void take(String objetoDeLaSalaCogido){
+        items objetosDeLaSala= null;
+        for(items objetosDeLaLista : currentRoom.getObjetos()){
+            if(objetosDeLaLista.getDescription().contains(objetoDeLaSalaCogido)){
+                objetosDeLaSala = objetosDeLaLista; 
+            }
+        }
+
+        if(objetosDeLaSala != null){
+            if(objetosDeLaSala.getWeight()< PESO_MAXIMO){
+                objetos.add(objetosDeLaSala);
+                currentRoom.getObjetos().remove(objetosDeLaSala);
+            }else{
+                System.out.println("El objeto es muy pesado");
+            }
+        }
+    }
+
+    /**
+     * Metodo para que el jugador pueda soltar los objetos dentro de una sala
+     * @param la descripcion del objeto que el jugador va a soltar
+     */
+    private void drop(String objetoDeLaSalaSoltado){
+        items objetosDeLaSala= null;
+        for(items objetosDeLaLista : objetos){
+            if(objetosDeLaLista.getDescription().contains(objetoDeLaSalaSoltado)){
+                objetosDeLaSala = objetosDeLaLista; 
+            }
+        }
+
+        if(objetosDeLaSala != null){
+            currentRoom.getObjetos().add(objetosDeLaSala);
+            objetos.remove(objetosDeLaSala);
+        }else{
+            System.out.println("El objeto no ha sido soltado");
+        }
+    }
+
+    /**
+     * Metodo para informar el objeto que ha cogido el jugador.
+     */
+    private void items(){
+        for(items objetosDeLaLista : objetos){
+            System.out.println(objetosDeLaLista.getInformacionDeLosObjetos()); 
+        }
     }
 }
