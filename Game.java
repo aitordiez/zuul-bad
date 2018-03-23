@@ -19,9 +19,7 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
-    private Room anteriorSala;
-    private Stack<Room> atras;
+    private Player player;
     /**
      * Create the game and initialise its internal map.
      */
@@ -29,14 +27,13 @@ public class Game
     {
         createRooms();
         parser = new Parser();
-        atras = new Stack<>();
-        atras.push(currentRoom);
+        player= new Player(createRooms());
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    private Room createRooms()
     {
         Room entradas,gradaOeste,restaurante,gradaEste,
         banhos,gradaNorte,chiringuito, salida, salidaNoroeste;
@@ -73,13 +70,11 @@ public class Game
         gradaNorte.setExit("west", gradaOeste);
         //Direcciones del chiringuito
         chiringuito.setExit("south", gradaNorte);
-        //sala anterior
-        anteriorSala=gradaOeste;
         //Añadir mas elementos en la grada oeste
         gradaOeste.addItem("periodistas",35);
-        gradaOeste.addItem("panel de marcador elelctronico", 78);
+        gradaOeste.addItem("panel de marcador electronico", 78);
         gradaOeste.addItem("palco de autoridades",90);
-        currentRoom = entradas;  // start game outside
+        return entradas;  // start game outside
     }
 
     /**
@@ -110,7 +105,6 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        printLocationInfo();
     }
 
     /**
@@ -132,28 +126,20 @@ public class Game
             printHelp();
         }
         else if (commandWord.equals("go")) {
-            goRoom(command);
+            player.goRoom(command);
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
         else if (commandWord.equals("look")){
-            look();
+            player.look();
         }
         else if (commandWord.equals("eat")){
-            eat();
+            player.eat();
         }
         else if (commandWord.equals("back")){
-            currentRoom=anteriorSala;
-            if(atras.empty())
-            {
-                atras.push(currentRoom);
-            }else{
-                currentRoom = atras.pop();
-            }
-            printLocationInfo();
+            player.back();
         }
-
         return wantToQuit;
     }
 
@@ -170,34 +156,7 @@ public class Game
         System.out.println(parser.showCommands());
     }
 
-    /** 
-     * Try to go in one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
-     */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return;
-        } 
-
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room nextRoom = null;
-
-        nextRoom = currentRoom.getExit(direction);
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            anteriorSala=currentRoom;
-            atras.push(currentRoom);
-            currentRoom = nextRoom;
-            printLocationInfo();
-        }
-    }
+  
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
@@ -215,26 +174,4 @@ public class Game
         }
     }
 
-    /**
-     *"Help" 
-     */
-    private void look()
-    {
-        System.out.println(currentRoom.getLongDescription());
-    }
-
-    /**
-     * "Eat"
-     */
-    private void eat(){
-        System.out.println("You have eaten now and you are not hungry any more");
-    }
-
-    /**
-     * Metodo para imprimir la informacion de la localizacion
-     */
-    private void printLocationInfo(){
-        System.out.print(currentRoom.getLongDescription());
-        System.out.println();
-    }
 }
