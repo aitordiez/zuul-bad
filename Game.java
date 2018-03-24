@@ -36,7 +36,7 @@ public class Game
     private Room createRooms()
     {
         Room entradas,gradaOeste,restaurante,gradaEste,
-        banhos,gradaNorte,chiringuito, salida, salidaNoroeste;
+        banhos,gradaNorte,chiringuito, salida, palcoFamiliaJugadores, salidaNoroeste;
 
         // create the rooms
         entradas = new Room("Taquilla para entrar al campo","entradas", 30);
@@ -48,6 +48,7 @@ public class Game
         chiringuito = new Room("Cafeteria del campo","bar",500);
         salida = new Room("Salida del campo", "portero de taquilla", 38);
         salidaNoroeste = new Room("Salida Noroeste del campo","policia", 56);
+        palcoFamiliaJugadores = new Room("El palco familiar de los jugadores","sillones", 60);
         // initialise room exits
         //Direcciones de la taquilla de las entradas
         entradas.setExit("east", gradaOeste);
@@ -55,6 +56,7 @@ public class Game
         gradaOeste.setExit("east", gradaNorte);
         gradaOeste.setExit("south", restaurante);
         gradaOeste.setExit("west", entradas);
+        gradaOeste.setExit("southWest", palcoFamiliaJugadores);
         //Direcciones del restaurante
         restaurante.setExit("north", gradaOeste);
         restaurante.setExit("southEast",salida);
@@ -70,7 +72,8 @@ public class Game
         gradaNorte.setExit("west", gradaOeste);
         //Direcciones del chiringuito
         chiringuito.setExit("south", gradaNorte);
-        
+        //Direcciones del palco familiar de los jugadores.
+        palcoFamiliaJugadores.setExit("east", gradaOeste);
         //Añadir mas elementos en la entrada.
         entradas.addItem(new Item("puesto de bufandas", 48, "Bufandas", true));
         entradas.addItem(new Item("detector de metales", 39, "Detector", true));
@@ -92,9 +95,12 @@ public class Game
         gradaNorte.addItem(new Item("Periodistas de radio", 50, "Periodistas", false));
         gradaNorte.addItem(new Item("Aseos", 60, "Aseos", false));
         gradaNorte.addItem(new Item("Asientos reservados para los ultras locales", 80, "Asientos", true));
-        //Añador mas elementos al chiringuito.
+        //Añadir mas elementos al chiringuito.
         chiringuito.addItem(new Item("refrescos", 10, "Refrescos", true));
         chiringuito.addItem(new Item("bocadillos", 30, "Bocadillos", true));
+        //Añadir mas elementos para el jugador.
+        palcoFamiliaJugadores.addItem(new Item("peso de los refrescos", 30, "Peso", true));
+        palcoFamiliaJugadores.addItem(new Item("peso de la comida", 55, "Pesos", true));
         return entradas;  // start game outside
     }
 

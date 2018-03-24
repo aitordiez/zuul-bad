@@ -13,6 +13,8 @@ public class Player
     private Stack<Room> atras;
     private Room anteriorSala;
     private ArrayList<Item> listaDeObjetos;
+    private static final int PESO_MAXIMO = 60;
+    private int pesoActualDelObjeto;
     /**
      * Constructor de los objetos de la clase Player.
      */
@@ -22,6 +24,7 @@ public class Player
         atras = new Stack<>();
         listaDeObjetos=new ArrayList<>();
         currentRoom=habitacion;
+        this.pesoActualDelObjeto = pesoActualDelObjeto; 
     }
 
     /** 
@@ -53,7 +56,7 @@ public class Player
     }
 
     /**
-     *"Look" 
+     * Imprime la lista de objetos y la habitacion en la que estas actualmente.  
      */
     public void look()
     {
@@ -61,7 +64,7 @@ public class Player
     }
 
     /**
-     * "Eat"
+     * Indica que el usuario ha comido y que no tiene mas hambre.
      */
     public void eat(){
         System.out.println("You have eaten now and you are not hungry any more");
@@ -89,19 +92,23 @@ public class Player
         Item objetoDeLaSala = currentRoom.getListaObjeto(idObjeto); 
         if(objetoDeLaSala != null){
             if(objetoDeLaSala.getPuedeSerCogido()){
-                listaDeObjetos.add(objetoDeLaSala);
-                currentRoom.getEliminarObjeto(objetoDeLaSala);
-                System.out.println("El objeto cogido de la sala ha sido: "  + objetoDeLaSala.getDescription());
+                if(objetoDeLaSala.getItemWeight() + pesoActualDelObjeto < PESO_MAXIMO){
+                    listaDeObjetos.add(objetoDeLaSala);
+                    currentRoom.getEliminarObjeto(objetoDeLaSala);
+                    pesoActualDelObjeto += objetoDeLaSala.getItemWeight();
+                    System.out.println("El objeto cogido de la sala fue: "  + objetoDeLaSala.getDescription());
+                }else{
+                    System.out.println("El objeto pesa mucho");
+                }
             }else{
-                System.out.println("El objeto es muy pesado");
-
+                System.out.println("El objeto no puede ser cogido");
             }   
         }else{
             System.out.println("El id introducido no es el correcto");
         }
-            
+
     }
-    
+
     /**
      * Metodo para que el jugador pueda soltar los objetos dentro de una sala
      * @param idObjetoSoltado. El id del objeto que el jugador va a soltar
@@ -113,16 +120,17 @@ public class Player
                 objetosDeLaSala = idObjetoSoltadoDeLaSala;
             }
         }
-        
+
         if(objetosDeLaSala != null){
             currentRoom.addItem(objetosDeLaSala);
             listaDeObjetos.remove(objetosDeLaSala);
+            pesoActualDelObjeto -= objetosDeLaSala.getItemWeight();
             System.out.println("El objeto que ha sido soltado es: " + objetosDeLaSala.getDescription());
         }else{
             System.out.println("El objeto no ha sido soltado");
         }
     }
-    
+
     /**
      * Metodo para imprimir la informacion de los objetos que lleva consigo el jugador.
      * 
@@ -132,7 +140,7 @@ public class Player
             System.out.println(objetosDeLaLista.getInformacionDeLosObjetos()); 
         }
     }
-    
+
     /**
      * Método que devuelve la sala en la que estamos.
      * @return currentRoom. Devuelve la sala en la que estamos.
