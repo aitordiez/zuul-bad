@@ -103,6 +103,27 @@ public class Player
     }
     
     /**
+     * Metodo para que el jugador pueda soltar los objetos dentro de una sala
+     * @param idObjetoSoltado. El id del objeto que el jugador va a soltar
+     */
+    public void drop(String idObjetoSoltado){
+        Item objetosDeLaSala= null;
+        for (Item idObjetoSoltadoDeLaSala : listaDeObjetos){
+            if(idObjetoSoltadoDeLaSala.getId().contains(idObjetoSoltado)){
+                objetosDeLaSala = idObjetoSoltadoDeLaSala;
+            }
+        }
+        
+        if(objetosDeLaSala != null){
+            currentRoom.addItem(objetosDeLaSala);
+            listaDeObjetos.remove(objetosDeLaSala);
+            System.out.println("El objeto que ha sido soltado es: " + objetosDeLaSala.getDescription());
+        }else{
+            System.out.println("El objeto no ha sido soltado");
+        }
+    }
+    
+    /**
      * Metodo para imprimir la informacion de los objetos que lleva consigo el jugador.
      * 
      */

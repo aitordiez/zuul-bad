@@ -72,29 +72,29 @@ public class Game
         chiringuito.setExit("south", gradaNorte);
         
         //Añadir mas elementos en la entrada.
-        entradas.addItem("puesto de bufandas", 48, "Bufandas", true);
-        entradas.addItem("detector de metales", 39, "Detector", true);
+        entradas.addItem(new Item("puesto de bufandas", 48, "Bufandas", true));
+        entradas.addItem(new Item("detector de metales", 39, "Detector", true));
         //Añadir mas elementos en la grada oeste
-        gradaOeste.addItem("periodistas",35, "Periodistas", false);
-        gradaOeste.addItem("panel de marcador electronico", 78, "Panel", true);
-        gradaOeste.addItem("palco de autoridades",90, "Palco", false);
+        gradaOeste.addItem(new Item("periodistas",35, "Periodistas", false));
+        gradaOeste.addItem(new Item("panel de marcador electronico", 78, "Panel", true));
+        gradaOeste.addItem(new Item("palco de autoridades",90, "Palco", false));
         //Añadir mas elementos en el restaurante.
-        restaurante.addItem("mesas", 70, "Mesas", true);
-        restaurante.addItem("cocineros", 40, "Cocineros", true);
+        restaurante.addItem(new Item("mesas", 70, "Mesas", true));
+        restaurante.addItem(new Item("cocineros", 40, "Cocineros", true));
         //Añadir mas elementos a la grada este.
-        gradaEste.addItem("asientos reservado visitante", 67 , "Asientos", false);
-        gradaEste.addItem("policias", 20, "Policias", true);
-        gradaEste.addItem("aseos", 40, "Aseos", false);
+        gradaEste.addItem(new Item("asientos reservado visitante", 67 , "Asientos", false));
+        gradaEste.addItem(new Item("policias", 20, "Policias", true));
+        gradaEste.addItem(new Item("aseos", 40, "Aseos", false));
         //Añadir mas elementos a los baños.
-        banhos.addItem("Lavabos", 46, "Lavabos", true);
-        banhos.addItem("secador de manos", 45, "Secador", true);
+        banhos.addItem(new Item("Lavabos", 46, "Lavabos", true));
+        banhos.addItem(new Item("secador de manos", 45, "Secador", true));
         //Añadir mas elementos a la grada norte.
-        gradaNorte.addItem("Periodistas de radio", 50, "Periodistas", false);
-        gradaNorte.addItem("Aseos", 60, "Aseos", false);
-        gradaNorte.addItem("Asientos reservados para los ultras locales", 80, "Asientos", true);
+        gradaNorte.addItem(new Item("Periodistas de radio", 50, "Periodistas", false));
+        gradaNorte.addItem(new Item("Aseos", 60, "Aseos", false));
+        gradaNorte.addItem(new Item("Asientos reservados para los ultras locales", 80, "Asientos", true));
         //Añador mas elementos al chiringuito.
-        chiringuito.addItem("refrescos", 10, "Refrescos", true);
-        chiringuito.addItem("bocadillos", 30, "Bocadillos", true);
+        chiringuito.addItem(new Item("refrescos", 10, "Refrescos", true));
+        chiringuito.addItem(new Item("bocadillos", 30, "Bocadillos", true));
         return entradas;  // start game outside
     }
 
@@ -166,7 +166,10 @@ public class Game
             player.take(command.getSecondWord());
         }
         else if (commandWord.equals("items")){
-            player.items(); 
+            player.items();  
+        }
+        else if (commandWord.equals("drop")){
+            player.drop(command.getSecondWord());
         }
         return wantToQuit;
     }
