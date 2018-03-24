@@ -101,7 +101,17 @@ public class Player
         }
             
     }
-
+    
+    /**
+     * Metodo para imprimir la informacion de los objetos que lleva consigo el jugador.
+     * 
+     */
+    public void items(){
+        for(Item objetosDeLaLista : listaDeObjetos){
+            System.out.println(objetosDeLaLista.getInformacionDeLosObjetos()); 
+        }
+    }
+    
     /**
      * Método que devuelve la sala en la que estamos.
      * @return currentRoom. Devuelve la sala en la que estamos.
