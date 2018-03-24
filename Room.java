@@ -21,7 +21,7 @@ public class Room
     private HashMap<String, Room>salidas;
     private String itemDescription;
     private int itemWeight;
-    private ArrayList<items> listaItem;
+    private ArrayList<Item> listaItem;
     /**
      * Create a room described "description". Initially, it has
      * no exits. "description" is something like "a kitchen" or
@@ -93,9 +93,8 @@ public class Room
     /**
      * Añadir a la lista los objetos de la clase items
      */
-    public void addItem(String itemDescription, int itemWeight){
-        items it= new items(itemDescription, itemWeight);
-        listaItem.add(it);
+    public void addItem(Item itemObjeto){
+        listaItem.add(itemObjeto);
     }
     
     /**
@@ -107,11 +106,34 @@ public class Room
         if(listaItem.size() <= 0){
             informacionDeLosObjetos="No hay ningun objeto en esta habitacion";
         }else{
-            for(items objetoDeLaLista : listaItem){
+            for(Item objetoDeLaLista : listaItem){
                 informacionDeLosObjetos += objetoDeLaLista.getInformacionDeLosObjetos();
             }
         }
         return informacionDeLosObjetos;
+    }
+    
+    /**
+     * Metodo para obtener los objetos por su id.
+     * @param id. El id del objeto.
+     * @return objetoDeLaLista. El objeto de la sala.
+     */
+    public Item getListaObjeto(String id){
+        Item objetoDeLaLista = null;
+        for(Item objetoCogido : listaItem){
+            if(objetoCogido.getId().equals(id)){
+                objetoDeLaLista = objetoCogido;
+            }
+        }
+        return objetoDeLaLista;
+    }
+    
+    /**
+     * Metodo para borrar el objeto de la lista.
+     * @param id. El id del objeto a ser eliminado.
+     */
+    public void getEliminarObjeto(Item id){
+        listaItem.remove(id);
     }
 }
 

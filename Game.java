@@ -36,7 +36,7 @@ public class Game
     private Room createRooms()
     {
         Room entradas,gradaOeste,restaurante,gradaEste,
-        banhos,gradaNorte,chiringuito, salida, salidaNoroeste;
+        banhos,gradaNorte,chiringuito, salida, palcoFamiliaJugadores, salidaNoroeste;
 
         // create the rooms
         entradas = new Room("Taquilla para entrar al campo","entradas", 30);
@@ -48,6 +48,7 @@ public class Game
         chiringuito = new Room("Cafeteria del campo","bar",500);
         salida = new Room("Salida del campo", "portero de taquilla", 38);
         salidaNoroeste = new Room("Salida Noroeste del campo","policia", 56);
+        palcoFamiliaJugadores = new Room("El palco familiar de los jugadores","sillones", 60);
         // initialise room exits
         //Direcciones de la taquilla de las entradas
         entradas.setExit("east", gradaOeste);
@@ -55,6 +56,7 @@ public class Game
         gradaOeste.setExit("east", gradaNorte);
         gradaOeste.setExit("south", restaurante);
         gradaOeste.setExit("west", entradas);
+        gradaOeste.setExit("southWest", palcoFamiliaJugadores);
         //Direcciones del restaurante
         restaurante.setExit("north", gradaOeste);
         restaurante.setExit("southEast",salida);
@@ -70,10 +72,35 @@ public class Game
         gradaNorte.setExit("west", gradaOeste);
         //Direcciones del chiringuito
         chiringuito.setExit("south", gradaNorte);
+        //Direcciones del palco familiar de los jugadores.
+        palcoFamiliaJugadores.setExit("east", gradaOeste);
+        //Añadir mas elementos en la entrada.
+        entradas.addItem(new Item("puesto de bufandas", 48, "Bufandas", true));
+        entradas.addItem(new Item("detector de metales", 39, "Detector", true));
         //Añadir mas elementos en la grada oeste
-        gradaOeste.addItem("periodistas",35);
-        gradaOeste.addItem("panel de marcador electronico", 78);
-        gradaOeste.addItem("palco de autoridades",90);
+        gradaOeste.addItem(new Item("periodistas",35, "Periodistas", false));
+        gradaOeste.addItem(new Item("panel de marcador electronico", 78, "Panel", true));
+        gradaOeste.addItem(new Item("palco de autoridades",90, "Palco", false));
+        //Añadir mas elementos en el restaurante.
+        restaurante.addItem(new Item("mesas", 70, "Mesas", true));
+        restaurante.addItem(new Item("cocineros", 40, "Cocineros", true));
+        //Añadir mas elementos a la grada este.
+        gradaEste.addItem(new Item("asientos reservado visitante", 67 , "Asientos", false));
+        gradaEste.addItem(new Item("policias", 20, "Policias", true));
+        gradaEste.addItem(new Item("aseos", 40, "Aseos", false));
+        //Añadir mas elementos a los baños.
+        banhos.addItem(new Item("Lavabos", 46, "Lavabos", true));
+        banhos.addItem(new Item("secador de manos", 45, "Secador", true));
+        //Añadir mas elementos a la grada norte.
+        gradaNorte.addItem(new Item("Periodistas de radio", 50, "Periodistas", false));
+        gradaNorte.addItem(new Item("Aseos", 60, "Aseos", false));
+        gradaNorte.addItem(new Item("Asientos reservados para los ultras locales", 80, "Asientos", true));
+        //Añadir mas elementos al chiringuito.
+        chiringuito.addItem(new Item("refrescos", 10, "Refrescos", true));
+        chiringuito.addItem(new Item("bocadillos", 30, "Bocadillos", true));
+        //Añadir mas elementos para el jugador.
+        palcoFamiliaJugadores.addItem(new Item("peso de los refrescos", 30, "Peso", true));
+        palcoFamiliaJugadores.addItem(new Item("peso de la comida", 55, "Pesos", true));
         return entradas;  // start game outside
     }
 
@@ -105,6 +132,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
+        player.look();
     }
 
     /**
@@ -139,6 +167,15 @@ public class Game
         }
         else if (commandWord.equals("back")){
             player.back();
+        }
+        else if (commandWord.equals("take")){
+            player.take(command.getSecondWord());
+        }
+        else if (commandWord.equals("items")){
+            player.items();  
+        }
+        else if (commandWord.equals("drop")){
+            player.drop(command.getSecondWord());
         }
         return wantToQuit;
     }
