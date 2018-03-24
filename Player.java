@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.ArrayList;
 /**
  * Clase Player
  * 
@@ -11,6 +12,7 @@ public class Player
     private Room currentRoom;
     private Stack<Room> atras;
     private Room anteriorSala;
+    private ArrayList<Item> listaDeObjetos;
     /**
      * Constructor de los objetos de la clase Player.
      */
@@ -18,6 +20,7 @@ public class Player
     {
         // initialise instance variables
         atras = new Stack<>();
+        listaDeObjetos=new ArrayList<>();
         currentRoom=habitacion;
     }
 
@@ -50,14 +53,13 @@ public class Player
     }
 
     /**
-     *"Help" 
+     *"Look" 
      */
     public void look()
     {
         System.out.println(currentRoom.getLongDescription());
     }
 
-    
     /**
      * "Eat"
      */
@@ -69,15 +71,40 @@ public class Player
      * Método para volver atras en una habitacion
      */
     public void back(){
-            currentRoom=anteriorSala;
-            if(atras.empty())
-            {
-                atras.push(currentRoom);
-            }else{
-                currentRoom = atras.pop();
-            }
-            printLocationInfo();
+        currentRoom=anteriorSala;
+        if(atras.empty())
+        {
+            atras.push(currentRoom);
+        }else{
+            currentRoom = atras.pop();
         }
+        printLocationInfo();
+    }
+
+    /**
+     * Metodo para que el jugador pueda coger los objetos de una sala.
+     * @param idObjeto. El id del objeto a coger. 
+     */
+    public void take(String idObjeto){
+        Item objetoDeLaSala = currentRoom.getListaObjeto(idObjeto); 
+        if(objetoDeLaSala != null){
+            listaDeObjetos.add(objetoDeLaSala);
+            currentRoom.getEliminarObjeto(objetoDeLaSala);
+            System.out.println("El objeto cogido de la sala ha sido: "  + objetoDeLaSala.getDescription());
+        }else{
+            System.out.println("El objeto es muy pesado");
+
+        }
+    }
+
+    /**
+     * Método que devuelve la sala en la que estamos.
+     * @return currentRoom. Devuelve la sala en la que estamos.
+     */
+    public Room currentRoom(){
+        return currentRoom;
+    }
+
     /**
      * Metodo para imprimir la informacion de la localizacion
      */
@@ -85,4 +112,5 @@ public class Player
         System.out.print(currentRoom.getLongDescription());
         System.out.println();
     }
+
 }
