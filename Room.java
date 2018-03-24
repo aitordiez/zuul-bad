@@ -93,8 +93,8 @@ public class Room
     /**
      * Añadir a la lista los objetos de la clase items
      */
-    public void addItem(String itemDescription, int itemWeight, String id){
-        Item it= new Item(itemDescription, itemWeight,id);
+    public void addItem(String itemDescription, int itemWeight, String id, boolean puedeSerCogido){
+        Item it= new Item(itemDescription, itemWeight, id, puedeSerCogido);
         listaItem.add(it);
     }
     

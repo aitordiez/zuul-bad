@@ -11,16 +11,18 @@ public class Item
     private String itemDescription;
     private int itemWeight;
     private String id;
+    private boolean pickUpItem;
     /**
      * Constructor for objects of class items
      * @param itemDescription, itemWeight, id
      */
-    public Item(String itemDescription, int itemWeight, String id)
+    public Item(String itemDescription, int itemWeight, String id, boolean pickUpItem)
     {
         // initialise instance variables
         this.itemDescription=itemDescription;
         this.itemWeight=itemWeight;
         this.id=id;
+        this.pickUpItem=pickUpItem;
     }
 
     /**
@@ -55,5 +57,12 @@ public class Item
      */
     public String getId(){
         return id;
+    }
+    
+    /**
+     * Metodo getter para que objeto puede ser cogido o no.
+     */
+    public boolean getPuedeSerCogido(){
+        return pickUpItem;
     }
 }

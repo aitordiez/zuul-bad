@@ -88,13 +88,18 @@ public class Player
     public void take(String idObjeto){
         Item objetoDeLaSala = currentRoom.getListaObjeto(idObjeto); 
         if(objetoDeLaSala != null){
-            listaDeObjetos.add(objetoDeLaSala);
-            currentRoom.getEliminarObjeto(objetoDeLaSala);
-            System.out.println("El objeto cogido de la sala ha sido: "  + objetoDeLaSala.getDescription());
-        }else{
-            System.out.println("El objeto es muy pesado");
+            if(objetoDeLaSala.getPuedeSerCogido()){
+                listaDeObjetos.add(objetoDeLaSala);
+                currentRoom.getEliminarObjeto(objetoDeLaSala);
+                System.out.println("El objeto cogido de la sala ha sido: "  + objetoDeLaSala.getDescription());
+            }else{
+                System.out.println("El objeto es muy pesado");
 
+            }   
+        }else{
+            System.out.println("El id introducido no es el correcto");
         }
+            
     }
 
     /**
