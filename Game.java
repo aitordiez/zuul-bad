@@ -88,6 +88,8 @@ public class Game
         gradaEste.addItem(new Item("asientos reservado visitante", 67 , "Asientos", false));
         gradaEste.addItem(new Item("policias", 20, "Policias", true));
         gradaEste.addItem(new Item("aseos", 40, "Aseos", false));
+        //Añadido el elemento especial para coger cualquier objeto.
+        gradaEste.addItem(new Item("gafas", 15, "Gafas", true));
         //Añadir mas elementos a los baños.
         banhos.addItem(new Item("Lavabos", 46, "Lavabos", true));
         banhos.addItem(new Item("secador de manos", 45, "Secador", true));
@@ -176,6 +178,9 @@ public class Game
         }
         else if (commandWord.equals("drop")){
             player.drop(command.getSecondWord());
+        }
+        else if (commandWord.equals("gafas")){
+            player.gafas(command.getSecondWord());
         }
         return wantToQuit;
     }
