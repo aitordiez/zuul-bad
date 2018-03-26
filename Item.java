@@ -61,6 +61,7 @@ public class Item
     
     /**
      * Metodo getter para que objeto puede ser cogido o no.
+     * @return pickUpItem. El objeto puede ser cogido o no.
      */
     public boolean getPuedeSerCogido(){
         return pickUpItem;
