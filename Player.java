@@ -15,6 +15,8 @@ public class Player
     private ArrayList<Item> listaDeObjetos;
     private static final int PESO_MAXIMO = 60;
     private int pesoActualDelObjeto;
+    //variable para el superpoder.
+    private boolean poderEspecial;
     /**
      * Constructor de los objetos de la clase Player.
      */
@@ -24,7 +26,8 @@ public class Player
         atras = new Stack<>();
         listaDeObjetos=new ArrayList<>();
         currentRoom=habitacion;
-        this.pesoActualDelObjeto = pesoActualDelObjeto; 
+        this.pesoActualDelObjeto = pesoActualDelObjeto;
+        this.poderEspecial=poderEspecial;
     }
 
     /** 
@@ -91,7 +94,7 @@ public class Player
     public void take(String idObjeto){
         Item objetoDeLaSala = currentRoom.getListaObjeto(idObjeto); 
         if(objetoDeLaSala != null){
-            if(objetoDeLaSala.getPuedeSerCogido()){
+            if(objetoDeLaSala.getPuedeSerCogido() || poderEspecial){
                 if(objetoDeLaSala.getItemWeight() + pesoActualDelObjeto < PESO_MAXIMO){
                     listaDeObjetos.add(objetoDeLaSala);
                     currentRoom.getEliminarObjeto(objetoDeLaSala);
@@ -128,6 +131,21 @@ public class Player
             System.out.println("El objeto que ha sido soltado es: " + objetosDeLaSala.getDescription());
         }else{
             System.out.println("El objeto no ha sido soltado");
+        }
+    }
+
+    /**
+     * Metodo para que el jugador con los guantes pueda ver y coger posibles objetos en el estadio.
+     * @param idObjetoEspecial. Objeto que coincida con el id del objeto especial. 
+     */
+    public void guantes(String idObjetoEspecial){
+        Item objetoDeLaSala= currentRoom.getListaObjeto(idObjetoEspecial);
+        if(objetoDeLaSala != null){
+            listaDeObjetos.add(objetoDeLaSala);
+            currentRoom.getEliminarObjeto(objetoDeLaSala);
+            System.out.println("El objeto cogido con los guantes ha sido: " + objetoDeLaSala.getDescription());
+        }else{
+            System.out.println("Primero equipate de los guantes para poder coger cualquier objeto");
         }
     }
 
