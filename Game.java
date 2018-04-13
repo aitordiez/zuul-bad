@@ -151,36 +151,41 @@ public class Game
             return false;
         }
 
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help")) {
-            printHelp();
-        }
-        else if (commandWord.equals("go")) {
-            player.goRoom(command);
-        }
-        else if (commandWord.equals("quit")) {
-            wantToQuit = quit(command);
-        }
-        else if (commandWord.equals("look")){
-            player.look();
-        }
-        else if (commandWord.equals("eat")){
-            player.eat();
-        }
-        else if (commandWord.equals("back")){
-            player.back();
-        }
-        else if (commandWord.equals("take")){
-            player.take(command.getSecondWord());
-        }
-        else if (commandWord.equals("items")){
-            player.items();  
-        }
-        else if (commandWord.equals("drop")){
-            player.drop(command.getSecondWord());
-        }
-        else if (commandWord.equals("dotar")){
-            player.guantes(command.getSecondWord());
+        CommandWord commandWord = command.getCommandWord(); 
+        switch(commandWord){
+            case UNKNOWN:
+                System.out.println("I don't know what you mean...");
+                break;
+            case HELP:
+                printHelp();
+                break;
+            case GO:
+                player.goRoom(command);
+                break;
+            case QUIT:
+                wantToQuit = quit(command);
+                break;
+            case LOOK: 
+                player.look();
+                break;
+            case EAT:
+                player.eat();
+                break;
+            case BACK:
+                player.back();
+                break;
+            case TAKE:
+                player.take(command.getSecondWord());
+                break;
+            case ITEMS:
+                player.items();
+                break;
+            case DROP:
+                player.drop(command.getSecondWord());
+                break;
+            case DOTAR:
+                player.guantes(command.getSecondWord());
+                break;
         }
         return wantToQuit;
     }
